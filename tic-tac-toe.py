@@ -33,22 +33,33 @@ class TicTacToe:
             if self.board[i] == ['O','O','O']:
                 return "O"
                
-        # check for vertial   
-        
+        # check for winner in vertial 
+        for i in range(3):
+            if all(self.board[j][i] == 'X' for j in range(3)):
+                return 'X'
+            if all(self.board[j][i] == 'O' for j in range(3)):
+                return 'O'
 
+        # check for winner in diagonal
+        if self.board[1][1] != '-':
+            if self.board[0][0] == self.board[1][1] ==  self.board[2][2] == 'X':
+                return 'X'
+            if self.board[0][0] == self.board[1][1] ==  self.board[2][2] == 'O':
+                return 'O'
+            if self.board[0][2] == self.board[1][1] ==  self.board[2][0] == 'X':
+                return 'X'
+            if self.board[0][2] == self.board[1][1] ==  self.board[2][0] == 'O':
+                return 'O'
+
+    # is a tie function
     def is_tie(self):
         for i in range(3):
             for j in range(3):
                 if self.board [i][j] == '-':
                     return False
-        return True # 
-    #     # EXERCISE: Find is is a Tie
-    #     # if there is no space it's a tie
-    #     return False
+        return True 
+
             
-
-
-
 game = TicTacToe()
 while True:
     print(game.player, "plays")
