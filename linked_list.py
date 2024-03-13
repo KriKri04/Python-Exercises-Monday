@@ -12,8 +12,8 @@
 
 class Node:
     def __init__(self) -> None:        
-        self.element = None  #value
-        self.next = None  #pointer
+        self.element = None  # value
+        self.next = None  # pointer
 
     def get_element(self):
         return self.element
@@ -41,51 +41,86 @@ class Node:
     
 class SinglyLinkedList:
     def __init__(self) -> None:
-        self.head = None  #value
-        self.tail = None  #pointer
+        self.head = None  # value
+        self.tail = None  # pointer
     
     def is_empty(self):
         if self.head == None and self.tail == None:  #method one
             return True
-        #return self.head == None and self.tail == None   #method two
+        # return self.head == None and self.tail == None   #method two
 
     def insert_head(self, value):
         new_node = Node()
         new_node.set_element(value)
 
-        #we ask the head where the first value is and we set it to new_node.next
+        # we ask the head where the first value is and we set it to new_node.next
         new_node.set_next(self.head)
-        #now we say to the head to point to the new value because it's the first one
+        # now we say to the head to point to the new value because it's the first one
         self.head = new_node
 
-        #if the list is empty the head and tail should point to the node
-        if self.is_empty():
+
+        # the tail can only be None when we insert our first value.
+        # in this if statement if the tail is none we make it equal to our new_node (this if statement only 
+        # happens when the new_node is the only node)
+        if self.tail is None:
             self.tail = new_node
 
     def delete_head(self):
-        pass
-
-    def insert_tail(self):
-        pass
-
-    def delete_tail(self):
-        pass
-
+        # we get the first value
+        # self.head is the entire node, by calling the method get_element() we can get the value of the head node
+        value = self.head.get_element()
+        # we get the next head [self.head.get_next()]
+        # the head is = to the next head element 
+        self.head = self.head.get_next()
 
 
-new_list = SinglyLinkedList()
-new_list.insert_head(10)
-print(new_list)
-# my_node = Node()
-# my_node.set_element(5)
-# print(my_node)
+    def insert_tail(self, value):
+        new_node = Node()
+        new_node.set_element(value)
 
-# print("value before setting:", end=" ")
-# # print("value before setting:") # The end=" " is used to make the print function to not go to the next line
-# print(my_node.get_element())
+        # we set the new_node as the next tail
+        self.tail.set_next(new_node)
+        self.tail = new_node
+
+        # if the list is empty the head and tail should point to the node
+        if self.is_empty():
+            self.head = new_node
+
+    def display(self):
+        iterator = self.head
+        while iterator is not None:
+            print(iterator)
+            iterator = iterator.get_next()
+
+        
 
 
-# print("value after setting:", end=" ")
-# my_node.set_element(30)
-# print(my_node.get_element())
+if __name__ == '__main__':
+
+    new_list = SinglyLinkedList()
+    new_list.insert_head(10)
+    new_list.insert_head(30)
+    new_list.insert_head(1123)
+    new_list.insert_head(12)
+    new_list.display()
+    print() # new line
+    new_list.delete_head() # it deletes one value
+    new_list.delete_head() # if we repeat it deletes two values
+    new_list.display()
+    print()
+    new_list.insert_tail(24)
+    new_list.display()
+
+    # my_node = Node()
+    # my_node.set_element(5)
+    # print(my_node)
+
+    # print("value before setting:", end=" ")
+    # # print("value before setting:") # The end=" " is used to make the print function to not go to the next line
+    # print(my_node.get_element())
+
+
+    # print("value after setting:", end=" ")
+    # my_node.set_element(30)
+    # print(my_node.get_element())
 
